@@ -7,7 +7,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'bean/init_result_info.dart';
-import 'bean/upgrade_info.dart';
 
 class FlutterBugly {
   FlutterBugly._();
@@ -154,12 +153,5 @@ class FlutterBugly {
     map.putIfAbsent("crash_detail", () => detail);
     if (data != null) map.putIfAbsent("crash_data", () => data);
     await _channel.invokeMethod('postCatchedException', map);
-  }
-
-  static UpgradeInfo _decodeUpgradeInfo(String jsonStr) {
-    if (jsonStr == null || jsonStr.isEmpty) return null;
-    Map resultMap = json.decode(jsonStr);
-    var info = UpgradeInfo.fromJson(resultMap);
-    return info;
   }
 }
